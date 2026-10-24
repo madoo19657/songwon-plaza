@@ -27,6 +27,8 @@
   --warn: #9a6a10;
   --warn-soft: #f4e8cd;
   --mark: #ffe45e;
+  --sl-fill: #9fb6d6;
+  --sl-thumb: #3a68ae;
   --done-bg: #1b5fbf;
   --done-ink: #ffffff;
   --mark-warn: #ffcdbf;
@@ -45,13 +47,13 @@
   :root:not([data-theme="light"]) {
     --bg: #10181f; --surface: #17222b; --ink: #e6ecf0; --muted: #98a6b1; --line: #2c3a45;
     --pos: #6aa2ee; --pos-soft: #1d3250; --neg: #f08a76; --neg-soft: #46241d;
-    --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; --done-bg: #6aa2ee; --done-ink: #10181f; color-scheme: dark;
+    --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; --done-bg: #6aa2ee; --done-ink: #10181f; --sl-fill: #4f6f9a; --sl-thumb: #9cc0f4; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #10181f; --surface: #17222b; --ink: #e6ecf0; --muted: #98a6b1; --line: #2c3a45;
   --pos: #6aa2ee; --pos-soft: #1d3250; --neg: #f08a76; --neg-soft: #46241d;
-  --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; --done-bg: #6aa2ee; --done-ink: #10181f; color-scheme: dark;
+  --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; --done-bg: #6aa2ee; --done-ink: #10181f; --sl-fill: #4f6f9a; --sl-thumb: #9cc0f4; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -143,7 +145,15 @@ section { display: flex; flex-direction: column; gap: 14px; min-width: 0; scroll
 .ctrl { display: flex; flex-direction: column; gap: 6px; }
 .ctrl .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; }
 .ctrl .top output { font-family: var(--font-num); font-weight: 600; font-size: 15px; }
-input[type=range] { width: 100%; accent-color: var(--pos); margin: 0; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 34px; margin: 0; background: transparent; cursor: grab; touch-action: pan-y; }
+input[type=range]:active { cursor: grabbing; }
+input[type=range]::-webkit-slider-runnable-track { height: 10px; border-radius: 999px; background: linear-gradient(to right, var(--sl-fill) var(--fill, 50%), var(--line) var(--fill, 50%)); }
+input[type=range]::-moz-range-track { height: 10px; border-radius: 999px; background: var(--line); }
+input[type=range]::-moz-range-progress { height: 10px; border-radius: 999px; background: var(--sl-fill); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 34px; height: 34px; margin-top: -12px; border-radius: 50%; border: 3px solid var(--surface); background-color: var(--sl-thumb); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M12 11 7 16l5 5M20 11l5 5-5 5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 100% 100%; box-shadow: 0 1px 5px rgba(0,0,0,0.25); }
+input[type=range]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--surface); background-color: var(--sl-thumb); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M12 11 7 16l5 5M20 11l5 5-5 5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 100% 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.35); }
+.drag-hint { font-size: 14px; font-weight: 500; color: var(--muted); text-align: center; background: var(--bg); padding: 8px 12px; }
+.panel.touched .drag-hint { display: none; }
 input[type=range]:focus-visible, button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--pos); outline-offset: 3px; }
 .ctrl .range-note { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-family: var(--font-num); }
 details summary { cursor: pointer; font-size: 14px; color: var(--muted); }
@@ -152,6 +162,13 @@ details .ctrls { display: flex; flex-direction: column; gap: 18px; margin-top: 1
 button.sec { font: inherit; font-size: 13px; padding: 7px 14px; border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
 button.sec:hover { background: var(--ink); color: var(--bg); }
 .assume { background: var(--warn-soft); color: var(--ink); border-left: 4px solid var(--warn); padding: 10px 14px; font-size: 13px; }
+
+/* why rent */
+.fit .fig { gap: 8px; }
+.fit .fig:first-child { border-left: 4px solid var(--done-bg); }
+.fit .fig:last-child { border-left: 4px solid var(--warn); }
+.fl { margin: 0; padding-left: 18px; font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
+.why-h { font-size: 19px; font-weight: 700; line-height: 1.5; word-break: keep-all; }
 
 /* highlighter */
 .hl { background: linear-gradient(transparent 52%, var(--mark) 52%); color: inherit; font-weight: 600; padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
@@ -280,6 +297,18 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
     </div>
   </header>
 
+  <section id="why">
+    <h2>왜 월세인가</h2>
+    <p class="why-h">주가에 흔들리기보다, <mark class="hl">월세로 현금흐름</mark>을 원하신다면</p>
+    <p class="lead">시세가 오르내려도 매달 임대료가 들어오는 구조를 원하는 분들이 부동산을 함께 살펴봅니다. 이 자료는 월세가 이자와 비용을 감당하는 선까지 숫자로 보여 드립니다.</p>
+    <div class="two fit">
+      <div class="fig"><span class="label">이런 분께 맞습니다</span>
+        <ul class="fl"><li>매달 월세 현금흐름을 기대하는 분</li><li>중장기로 보유할 수 있는 분</li><li>공실과 금리 변동을 견딜 여유 자금이 있는 분</li></ul></div>
+      <div class="fig"><span class="label">맞지 않을 수 있습니다</span>
+        <ul class="fl"><li>단기 매매차익이 목적인 분</li><li>언제든 바로 현금화해야 하는 분 (상가는 거래가 느릴 수 있습니다)</li><li>공실 기간을 버틸 현금이 없는 분</li></ul></div>
+    </div>
+  </section>
+
   <section id="unit">
     <h2>607호는 이런 호실입니다</h2>
     <dl class="spec">
@@ -316,13 +345,13 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
       <p class="lead">이 세대가 어느 호재에서 나오고 언제쯤 현실이 되는지, 호재별로 정리했습니다.</p>
     </div>
 
-    <p class="doneline"><b>호재 1~5 한 줄 요약</b> 병원 승인과 사업협약, 트램 개통 목표, 대단지 주거 부지 낙찰과 재개발이 차례로 진행되고 있습니다. 계획대로 진행되면 이 상가 주변 생활 인구가 늘고, 임대 수요와 상가 가치에도 긍정적인 영향을 줄 수 있습니다.</p>
+    <p class="doneline"><b>한 줄 요약 :</b> <mark class="hl">병원 승인과 사업협약, 트램 개통 목표, 대단지 주거 부지 낙찰과 재개발이 차례로 진행되고 있습니다.</mark> 계획대로 진행되면 이 상가 주변 생활 인구가 늘고, 임대 수요와 상가 가치에도 긍정적인 영향을 줄 수 있습니다.</p>
     <div class="grps">
       <div class="grp"><h3><span class="rank">호재 1</span>700병상 종합병원, 위례성심병원<small>송파구 거여동 272 일원 · 개설 승인 · 사업협약 체결</small></h3><ul class="ms"><li class="done"><span class="when">2026.06</span><span class="what">보건복지부 병상수급 사전 승인</span><span class="st done">승인</span></li><li class="done"><span class="when">2026.06.30</span><span class="what">서울시 개설 승인</span><span class="st done">승인</span></li><li class="done"><span class="when">2026.09</span><span class="what">SH공사와 위례성심컨소시엄 사업협약 체결</span><span class="st done">체결</span></li><li><span class="when">2026.10</span><span class="what">특수목적법인(PFV) 설립 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2026.11</span><span class="what">토지매매계약, 조기 착공 준비 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2027 초</span><span class="what">착공</span><span class="st ">목표</span></li></ul><p>개원일은 아직 정해지지 않았습니다. 법인 설립과 토지매매계약 등 이후 단계의 진행 여부는 상담 시 최신 상태로 확인해 드립니다.</p></div>
       <div class="grp"><h3><span class="rank">호재 2</span>지하철역과 연결되는 위례선 트램<small>마천역~복정역·남위례역 5.4km · 정거장 12곳</small></h3><ul class="ms"><li><span class="when">2026.12 말</span><span class="what">개통 (공식 목표)</span><span class="st ">목표</span></li></ul></div>
       <div class="grp"><h3><span class="rank">호재 3</span>576세대 48층 오피스텔, 호반써밋 에디션 위례<small>호반건설 · 단지 건너편 초고층 · 2026.12 분양 예정</small></h3><ul class="ms"><li><span class="when">2026.12</span><span class="what">분양</span><span class="st ">예정</span></li></ul><p>분양 시점이며, 입주는 이후입니다.</p></div>
       <div class="grp"><h3><span class="rank">호재 4</span>656세대 주상복합, 카이브 유보라<small>반도건설 · 사업비 약 6,000억 원 · 북위례 E1-1블록</small></h3><ul class="ms"><li class="done"><span class="when">2025.12</span><span class="what">부지 낙찰</span><span class="st done">낙찰</span></li><li><span class="when">2027 하반기</span><span class="what">분양</span><span class="st ">예상</span></li></ul><p>분양 시기는 확정되지 않았고, 착공 일정은 아직 발표되지 않았습니다.</p></div>
-      <div class="grp"><h3><span class="rank">호재 5</span>3,576세대 이상 재개발, 마천 3·4구역<small>4구역 현대건설 · 3구역 GS건설</small></h3><ul class="ms"><li><span class="when">4구역 · 2026 연내</span><span class="what">착공 (공사비 협상 타결, 1,254가구)</span><span class="st ">목표</span></li><li><span class="when">3구역 · 2026.10.23</span><span class="what">조합원 분양신청 마감 (2,322가구)</span><span class="st ">일정</span></li><li><span class="when">3구역 · 2026 연내</span><span class="what">관리처분 인가 신청</span><span class="st ">목표</span></li><li><span class="when">3구역 · 2027 하반기</span><span class="what">이주</span><span class="st ">계획</span></li></ul><p>3구역은 최대 2,882가구까지 늘리는 방안이 마련돼 있고, 착공 시기는 아직 발표되지 않았습니다.</p></div>
+      <div class="grp"><h3><span class="rank">호재 5</span>3,576세대 이상 재개발, 마천 3·4구역<small>4구역 현대건설 · 3구역 GS건설</small></h3><ul class="ms"><li><span class="when">4구역 · 2026 연내</span><span class="what">착공 (공사비 협상 타결, 1,254가구)</span><span class="st ">목표</span></li><li><span class="when">3구역 · 2026.10.23</span><span class="what">조합원 분양신청 마감 (2,322가구)</span><span class="st done">마감</span></li><li><span class="when">3구역 · 2026 연내</span><span class="what">관리처분 인가 신청</span><span class="st ">목표</span></li><li><span class="when">3구역 · 2027 하반기</span><span class="what">이주</span><span class="st ">계획</span></li></ul><p>3구역은 최대 2,882가구까지 늘리는 방안이 마련돼 있고, 착공 시기는 아직 발표되지 않았습니다.</p></div>
     </div>
     <p class="note">호재 번호는 확정 단계가 앞서고 이 상가와 가깝거나 시기가 가까운 순서입니다. 2026년 10월 기준 보도를 정리한 것입니다. 일정은 사업 상황에 따라 바뀔 수 있고, 최신 상태는 상담 시 확인해 드립니다.</p>
   </section>
@@ -346,8 +375,9 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
 
   <section id="sim">
     <h2>내 조건으로 직접 계산해 보세요</h2>
-    <p class="lead">슬라이더를 움직이면 월 수입과 수익률이 바로 바뀝니다. 상담 전에 미리 조건을 정해 두면 대화가 빨라집니다.</p>
-    <div class="panel">
+    <p class="lead"><mark class="hl">슬라이더를 움직이면 월 수입과 수익률이 바로 바뀝니다.</mark> 상담 전에 미리 조건을 정해 두면 대화가 빨라집니다.</p>
+    <div class="panel" id="sim-panel">
+      <p class="drag-hint">◀ 동그란 손잡이를 좌우로 밀어 보세요 ▶</p>
       <div class="ctrl">
         <div class="top"><label for="loan">대출 비율</label><output id="o-loan"></output></div>
         <input type="range" id="loan" min="0" max="70" step="5" value="60">
@@ -575,6 +605,7 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
   var last = {};
 
   function render() {
+    ids.forEach(function (k) { var e = el[k]; e.style.setProperty('--fill', ((e.value - e.min) / (e.max - e.min) * 100) + '%'); });
     var p = read();
     var c = calc(p);
     var monthTable = c.netTable / 12;
@@ -739,7 +770,11 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
     } catch (e) { fallback(); }
   }
 
-  ids.forEach(function (k) { el[k].addEventListener('input', render); });
+  function fill(e) { e.style.setProperty('--fill', ((e.value - e.min) / (e.max - e.min) * 100) + '%'); }
+  ids.forEach(function (k) {
+    el[k].addEventListener('input', function () { $('sim-panel').classList.add('touched'); });
+    el[k].addEventListener('input', render);
+  });
   $('c-name').addEventListener('input', buildMsg);
   $('c-when').addEventListener('input', buildMsg);
   $('c-type').addEventListener('change', buildMsg);
