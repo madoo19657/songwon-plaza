@@ -27,6 +27,8 @@
   --warn: #9a6a10;
   --warn-soft: #f4e8cd;
   --mark: #ffe45e;
+  --done-bg: #1b5fbf;
+  --done-ink: #ffffff;
   --mark-warn: #ffcdbf;
   --mark-hero: #8a6a00;
   --hero-bg: #15222d;
@@ -43,13 +45,13 @@
   :root:not([data-theme="light"]) {
     --bg: #10181f; --surface: #17222b; --ink: #e6ecf0; --muted: #98a6b1; --line: #2c3a45;
     --pos: #6aa2ee; --pos-soft: #1d3250; --neg: #f08a76; --neg-soft: #46241d;
-    --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; color-scheme: dark;
+    --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; --done-bg: #6aa2ee; --done-ink: #10181f; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #10181f; --surface: #17222b; --ink: #e6ecf0; --muted: #98a6b1; --line: #2c3a45;
   --pos: #6aa2ee; --pos-soft: #1d3250; --neg: #f08a76; --neg-soft: #46241d;
-  --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; color-scheme: dark;
+  --warn: #e2b560; --warn-soft: #43361a; --hero-bg: #0a1117; --cta: #3f84e0; --mark: #7a6310; --mark-warn: #7a3a2c; --done-bg: #6aa2ee; --done-ink: #10181f; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -193,7 +195,10 @@ h3.sub { font-size: 17px; font-weight: 700; }
 .ms li { display: grid; grid-template-columns: 150px 1fr auto; gap: 4px 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .ms .when { font-size: 13px; color: var(--muted); white-space: nowrap; }
 .ms .st { font-size: 11px; padding: 2px 8px; background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
-.ms .st.done { background: var(--pos-soft); color: var(--pos); }
+.ms .st.done { background: var(--done-bg); color: var(--done-ink); font-weight: 700; padding: 3px 10px; font-size: 12px; }
+.ms .st.done::before { content: "\2713 "; }
+.doneline { background: var(--pos-soft); border-left: 4px solid var(--done-bg); padding: 10px 14px; font-size: 14px; line-height: 1.6; }
+.doneline b { font-weight: 700; }
 
 /* matrix */
 .scroll { overflow-x: auto; }
@@ -311,11 +316,12 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
       <p class="lead">이 세대가 어느 호재에서 나오고 언제쯤 현실이 되는지, 호재별로 정리했습니다.</p>
     </div>
 
+    <p class="doneline"><b>호재 1~5 한 줄 요약</b> 병원 승인과 사업협약, 트램 개통 목표, 대단지 주거 부지 낙찰과 재개발이 차례로 진행되고 있습니다. 계획대로 진행되면 이 상가 주변 생활 인구가 늘고, 임대 수요와 상가 가치에도 긍정적인 영향을 줄 수 있습니다.</p>
     <div class="grps">
-      <div class="grp"><h3><span class="rank">호재 1</span>700병상 종합병원, 위례성심병원<small>송파구 거여동 272 일원 · 서울시 개설 승인 완료</small></h3><ul class="ms"><li><span class="when">2026.06</span><span class="what">보건복지부 병상수급 사전 승인</span><span class="st done">승인</span></li><li><span class="when">2026.06.30</span><span class="what">서울시 개설 승인</span><span class="st done">승인</span></li><li><span class="when">2026.09</span><span class="what">SH공사와 위례성심컨소시엄 사업협약 체결</span><span class="st done">체결</span></li><li><span class="when">2026.10</span><span class="what">특수목적법인(PFV) 설립 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2026.11</span><span class="what">토지매매계약, 조기 착공 준비 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2027 초</span><span class="what">착공</span><span class="st ">목표</span></li></ul><p>개원일은 아직 정해지지 않았습니다. 법인 설립과 토지매매계약 등 이후 단계의 진행 여부는 상담 시 최신 상태로 확인해 드립니다.</p></div>
+      <div class="grp"><h3><span class="rank">호재 1</span>700병상 종합병원, 위례성심병원<small>송파구 거여동 272 일원 · 개설 승인 · 사업협약 체결</small></h3><ul class="ms"><li class="done"><span class="when">2026.06</span><span class="what">보건복지부 병상수급 사전 승인</span><span class="st done">승인</span></li><li class="done"><span class="when">2026.06.30</span><span class="what">서울시 개설 승인</span><span class="st done">승인</span></li><li class="done"><span class="when">2026.09</span><span class="what">SH공사와 위례성심컨소시엄 사업협약 체결</span><span class="st done">체결</span></li><li><span class="when">2026.10</span><span class="what">특수목적법인(PFV) 설립 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2026.11</span><span class="what">토지매매계약, 조기 착공 준비 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2027 초</span><span class="what">착공</span><span class="st ">목표</span></li></ul><p>개원일은 아직 정해지지 않았습니다. 법인 설립과 토지매매계약 등 이후 단계의 진행 여부는 상담 시 최신 상태로 확인해 드립니다.</p></div>
       <div class="grp"><h3><span class="rank">호재 2</span>지하철역과 연결되는 위례선 트램<small>마천역~복정역·남위례역 5.4km · 정거장 12곳</small></h3><ul class="ms"><li><span class="when">2026.12 말</span><span class="what">개통 (공식 목표)</span><span class="st ">목표</span></li></ul></div>
       <div class="grp"><h3><span class="rank">호재 3</span>576세대 48층 오피스텔, 호반써밋 에디션 위례<small>호반건설 · 단지 건너편 초고층 · 2026.12 분양 예정</small></h3><ul class="ms"><li><span class="when">2026.12</span><span class="what">분양</span><span class="st ">예정</span></li></ul><p>분양 시점이며, 입주는 이후입니다.</p></div>
-      <div class="grp"><h3><span class="rank">호재 4</span>656세대 주상복합, 카이브 유보라<small>반도건설 · 사업비 약 6,000억 원 · 북위례 E1-1블록</small></h3><ul class="ms"><li><span class="when">2025.12</span><span class="what">부지 낙찰</span><span class="st done">낙찰</span></li><li><span class="when">2027 하반기</span><span class="what">분양</span><span class="st ">예상</span></li></ul><p>분양 시기는 확정되지 않았고, 착공 일정은 아직 발표되지 않았습니다.</p></div>
+      <div class="grp"><h3><span class="rank">호재 4</span>656세대 주상복합, 카이브 유보라<small>반도건설 · 사업비 약 6,000억 원 · 북위례 E1-1블록</small></h3><ul class="ms"><li class="done"><span class="when">2025.12</span><span class="what">부지 낙찰</span><span class="st done">낙찰</span></li><li><span class="when">2027 하반기</span><span class="what">분양</span><span class="st ">예상</span></li></ul><p>분양 시기는 확정되지 않았고, 착공 일정은 아직 발표되지 않았습니다.</p></div>
       <div class="grp"><h3><span class="rank">호재 5</span>3,576세대 이상 재개발, 마천 3·4구역<small>4구역 현대건설 · 3구역 GS건설</small></h3><ul class="ms"><li><span class="when">4구역 · 2026 연내</span><span class="what">착공 (공사비 협상 타결, 1,254가구)</span><span class="st ">목표</span></li><li><span class="when">3구역 · 2026.10.23</span><span class="what">조합원 분양신청 마감 (2,322가구)</span><span class="st ">일정</span></li><li><span class="when">3구역 · 2026 연내</span><span class="what">관리처분 인가 신청</span><span class="st ">목표</span></li><li><span class="when">3구역 · 2027 하반기</span><span class="what">이주</span><span class="st ">계획</span></li></ul><p>3구역은 최대 2,882가구까지 늘리는 방안이 마련돼 있고, 착공 시기는 아직 발표되지 않았습니다.</p></div>
     </div>
     <p class="note">호재 번호는 확정 단계가 앞서고 이 상가와 가깝거나 시기가 가까운 순서입니다. 2026년 10월 기준 보도를 정리한 것입니다. 일정은 사업 상황에 따라 바뀔 수 있고, 최신 상태는 상담 시 확인해 드립니다.</p>
@@ -592,7 +598,7 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
     $('h-net').innerHTML = man1(monthTable) + '<small>만</small>';
     $('h-net').style.color = monthTable < 0 ? '#ff9c8a' : '';
     $('h-roi').innerHTML = pct(c.roiTable) + '<small>%</small>';
-    $('h-safe').innerHTML = '취득세, 연 ' + p.vac + '개월 공실, 보유 비용까지 모두 뺀 <b class="hl">' + (monthReal < 0 ? '월 ' : '월 ') + eokMan(monthReal) + '원 · 연 ' + pct(c.roi) + '%</b>입니다. <a href="#steps">계산 과정 보기</a>';
+    $('h-safe').innerHTML = '공실(연 ' + p.vac + '개월)과 보유 비용까지 빼도 ' + (monthReal >= 0 ? '<b class="hl">월 ' + eokMan(monthReal) + '원</b>이 남습니다.' : '<b class="hl">월 ' + eokMan(-monthReal) + '원</b>이 부족합니다.') + ' 취득세까지 투자금에 넣으면 연 수익률은 ' + pct(c.roi) + '%입니다. <a href="#steps">계산 과정 보기</a>';
     $('bar-main').textContent = '월 순수입 ' + man1(monthTable) + '만원';
 
     /* cash timeline */
@@ -613,7 +619,7 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
     /* steps */
     $('s-month').innerHTML = eokMan(monthReal).replace('만', '') + '<small>만원</small>';
     $('s-month').style.color = monthReal < 0 ? 'var(--neg)' : '';
-    $('s-month-note').textContent = '취득세 ' + eokMan(c.acq) + ', 공실 ' + p.vac + '개월, 보유 비용 ' + p.hold + '만원/년까지 반영';
+    $('s-month-note').textContent = '공실 ' + p.vac + '개월과 보유 비용 ' + p.hold + '만원/년을 뺀 월평균 (취득세는 연 수익률에 반영)';
     var vals = [c.roiTable, c.roi1, c.roi2, c.roi];
     var stress = c.eq > 0 ? (c.net - c.loan * 0.01) / c.eq : 0;
     var maxV = Math.max(0.08, vals[0], 0.0001);
@@ -690,7 +696,7 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
       var cur = Math.abs(x.rt - p.rate) < 0.05 ? ' cur' : '';
       return '<div class="fig' + cur + '"><span class="label">금리 ' + x.rt.toFixed(1) + '%</span><span class="big ' + sgn(x.m) + '">' + (x.m >= 0 ? '+' : '') + Math.round(x.m / 1e4) + '<small>만원/월</small></span><p>연 수익률 ' + pct(x.roi) + '%</p></div>';
     }).join('');
-    $('r-note').textContent = '월 수입은 취득세, 공실, 보유 비용을 반영한 월평균입니다. 3.7%는 안내표의 가정이고, 실제 금리는 은행 상담으로 확인하세요. 아래 슬라이더로 다른 조건도 바로 계산됩니다.';
+    $('r-note').textContent = '월 수입은 공실과 보유 비용을 뺀 월평균이고, 연 수익률에는 취득세가 반영돼 있습니다. 3.7%는 안내표의 가정이고, 실제 금리는 은행 상담으로 확인하세요. 아래 슬라이더로 다른 조건도 바로 계산됩니다.';
 
     /* faq */
     var beVac = c.rent > 0 ? Math.max(0, Math.min(12, 12 - (c.interest + c.hold) / c.rent)) : 0;
