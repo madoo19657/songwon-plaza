@@ -64,7 +64,7 @@ body {
 h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { text-wrap: balance; }
 h2 { font-size: 21px; font-weight: 700; padding-top: 14px; border-top: 3px solid var(--ink); line-height: 1.4; }
-.lead { color: var(--muted); max-width: 62ch; }
+.lead { color: var(--muted); word-break: keep-all; }
 .label { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
 section { display: flex; flex-direction: column; gap: 14px; min-width: 0; scroll-margin-top: 16px; }
 
@@ -127,7 +127,7 @@ section { display: flex; flex-direction: column; gap: 14px; min-width: 0; scroll
 .row.total .lab { font-weight: 700; }
 .row.total .val { font-weight: 600; }
 .neg { color: var(--neg); }
-.note { font-size: 13px; color: var(--muted); max-width: 64ch; }
+.note { font-size: 13px; color: var(--muted); word-break: keep-all; }
 .note b { color: var(--ink); }
 
 .fig { background: var(--surface); border: 1px solid var(--line); padding: 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
@@ -154,7 +154,7 @@ button.sec:hover { background: var(--ink); color: var(--bg); }
 /* highlighter */
 .hl { background: linear-gradient(transparent 52%, var(--mark) 52%); color: inherit; font-weight: 600; padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .hlw { background: linear-gradient(transparent 52%, var(--mark-warn) 52%); color: inherit; font-weight: 600; padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-.hand { font-family: var(--font-hand); font-size: 25px; font-weight: 400; line-height: 1.3; color: var(--ink); max-width: 60ch; }
+.hand { font-family: var(--font-hand); font-size: 25px; font-weight: 400; line-height: 1.3; color: var(--ink); }
 .hero .hl, .contact .hl { background: none; color: #ffe27a; padding: 0; }
 
 /* rate safety, faq, visit */
@@ -166,7 +166,7 @@ button.sec:hover { background: var(--ink); color: var(--bg); }
 .faq { border-top: 1px solid var(--line); }
 .faq details { border-bottom: 1px solid var(--line); padding: 12px 0; }
 .faq summary { cursor: pointer; font-weight: 600; font-size: 15px; line-height: 1.5; }
-.faq details > div { margin-top: 8px; color: var(--muted); font-size: 14px; max-width: 64ch; display: flex; flex-direction: column; gap: 6px; }
+.faq details > div { margin-top: 8px; color: var(--muted); font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
 .faq details > div b { color: var(--ink); font-weight: 600; }
 .visit { background: var(--surface); border: 2px solid var(--ink); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
 .visit h3 { font-size: 18px; font-weight: 700; }
@@ -312,7 +312,7 @@ footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line)
     </div>
 
     <div class="grps">
-      <div class="grp"><h3><span class="rank">호재 1</span>700병상 종합병원, 위례성심병원<small>송파구 거여동 272 일원 · 서울시 개설 승인 완료</small></h3><ul class="ms"><li><span class="when">2026.06</span><span class="what">보건복지부 병상수급 사전 승인</span><span class="st done">승인</span></li><li><span class="when">2026.06.30</span><span class="what">서울시 개설 승인</span><span class="st done">승인</span></li><li><span class="when">2026.09</span><span class="what">사업협약 체결 (SH공사 계획)</span><span class="st ">예정</span></li><li><span class="when">2026.10</span><span class="what">특수목적법인(PFV) 설립 (SH공사 계획)</span><span class="st ">예정</span></li><li><span class="when">2026.11</span><span class="what">토지매매계약, 조기 착공 준비 (SH공사 계획)</span><span class="st ">예정</span></li><li><span class="when">2027 초</span><span class="what">착공</span><span class="st ">목표</span></li></ul><p>개원일은 아직 정해지지 않았습니다. 사업협약부터 토지매매계약까지의 진행 여부는 상담 시 최신 상태로 확인해 드립니다.</p></div>
+      <div class="grp"><h3><span class="rank">호재 1</span>700병상 종합병원, 위례성심병원<small>송파구 거여동 272 일원 · 서울시 개설 승인 완료</small></h3><ul class="ms"><li><span class="when">2026.06</span><span class="what">보건복지부 병상수급 사전 승인</span><span class="st done">승인</span></li><li><span class="when">2026.06.30</span><span class="what">서울시 개설 승인</span><span class="st done">승인</span></li><li><span class="when">2026.09</span><span class="what">사업협약 체결 (SH공사 계획, 체결 여부 확인 중)</span><span class="st ">확인 중</span></li><li><span class="when">2026.10</span><span class="what">특수목적법인(PFV) 설립 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2026.11</span><span class="what">토지매매계약, 조기 착공 준비 (SH공사 계획)</span><span class="st ">계획</span></li><li><span class="when">2027 초</span><span class="what">착공</span><span class="st ">목표</span></li></ul><p>개원일은 아직 정해지지 않았습니다. 사업협약부터 토지매매계약까지의 진행 여부는 상담 시 최신 상태로 확인해 드립니다.</p></div>
       <div class="grp"><h3><span class="rank">호재 2</span>지하철역과 연결되는 위례선 트램<small>마천역~복정역·남위례역 5.4km · 정거장 12곳</small></h3><ul class="ms"><li><span class="when">2026.12 말</span><span class="what">개통 (공식 목표)</span><span class="st ">목표</span></li></ul></div>
       <div class="grp"><h3><span class="rank">호재 3</span>576세대 48층 오피스텔, 호반써밋 에디션 위례<small>호반건설 · 단지 건너편 초고층 · 2026.12 분양 예정</small></h3><ul class="ms"><li><span class="when">2026.12</span><span class="what">분양</span><span class="st ">예정</span></li></ul><p>분양 시점이며, 입주는 이후입니다.</p></div>
       <div class="grp"><h3><span class="rank">호재 4</span>656세대 주상복합, 카이브 유보라<small>반도건설 · 사업비 약 6,000억 원 · 북위례 E1-1블록</small></h3><ul class="ms"><li><span class="when">2025.12</span><span class="what">부지 낙찰</span><span class="st done">낙찰</span></li><li><span class="when">2027 하반기</span><span class="what">분양</span><span class="st ">예상</span></li></ul><p>분양 시기는 확정되지 않았고, 착공 일정은 아직 발표되지 않았습니다.</p></div>
