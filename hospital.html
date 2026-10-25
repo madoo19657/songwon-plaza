@@ -302,14 +302,17 @@ mark{background:linear-gradient(transparent 55%,#f5df8c 55%);color:inherit;font-
     function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1400);set(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
     requestAnimationFrame(step)
   }
-  document.querySelectorAll('[data-count]').forEach(count);
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.width=e.target.dataset.w+'%';io.unobserve(e.target)}})},{threshold:.3});
+  var kp=document.querySelector('.kpis'),shown=true;
+  count_all();
+  function count_all(){document.querySelectorAll('[data-count]').forEach(count)}
+  new IntersectionObserver(function(es){var v=es[0].isIntersecting;if(v&&!shown)count_all();shown=v},{threshold:.5}).observe(kp);
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.style.width=e.isIntersecting?e.target.dataset.w+'%':'0'})},{threshold:.3});
   document.querySelectorAll('.fill').forEach(function(f){if(reduce){f.style.width=f.dataset.w+'%'}else io.observe(f)});
   var pins=document.querySelectorAll('.pin'),cards=document.querySelectorAll('.hcard');
   function on(k){pins.forEach(function(p){p.classList.toggle('on',p.dataset.k===k)});cards.forEach(function(c){c.classList.toggle('on',c.dataset.k===k)})}
   pins.forEach(function(p){p.addEventListener('click',function(){on(p.dataset.k);var c=document.querySelector('.hcard[data-k="'+p.dataset.k+'"]');if(c)c.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'})});p.addEventListener('mouseenter',function(){on(p.dataset.k)})});
   cards.forEach(function(c){c.addEventListener('click',function(){on(c.dataset.k)});c.addEventListener('mouseenter',function(){on(c.dataset.k)})});
-  var rvIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rvIO.unobserve(e.target)}})},{threshold:.15});
+  var rvIO=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('in',e.isIntersecting)})},{threshold:.15});
   if(!reduce)document.querySelectorAll('.eyebrow,section>h2,section>.sub,.mapbox,.hcard,.panel,.big3>div,.feat>div,.aud>article,.tl li').forEach(function(el,i){
     var sib=el.parentNode.children,n=Array.prototype.indexOf.call(sib,el);
     el.style.setProperty('--d',(Math.min(n,5)*0.08)+'s');el.classList.add('rv');rvIO.observe(el)});
